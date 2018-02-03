@@ -1,0 +1,30 @@
+{
+  "name": "articles-products-and-express",
+  "version": "1.0.0",
+  "description": "articles-products",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-handlebars": "^3.0.0",
+    "method-override": "^2.3.10",
+    "save": "^2.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DODHI5/articles-products-and-express.git"
+  },
+  "author": "zd",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DODHI5/articles-products-and-express/issues"
+  },
+  "homepage": "https://github.com/DODHI5/articles-products-and-express#readme"
+}
