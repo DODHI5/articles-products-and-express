@@ -1,6 +1,6 @@
 //routes/articles.js file
 const express = require("express");
-const router = express.Router();
+let router = express.Router();
 const db = require("../db/articles");
 
 //Time
@@ -10,46 +10,53 @@ router.use((req, res, next) => {
 });
 //
 
-router.route("/");
+router
+  .route("/")
 
-router.get("/", (req, res) => {
-  const articlesArr = db.getAll();
-  res.render("index", {
-    collection: articlesArr
-  });
-  router.get("/new", (req, res) => {
-    return res.render("article/new");
-  });
-  router.post("/", (req, res) => {
+  .get((req, res) => {
+    const articlesArr = db.getAll();
+    res.render("./index", {
+      collection: articlesArr
+    });
+  })
+  .post((req, res) => {
     let body = req.body;
     db.newArt(body);
     res.redirect("/articles");
   });
-});
 
-router.get("/edit", (req, res) => {
-  const articlesArr = db.getAll();
-  res.render("article/edit", {
-    collection: articlesArr
+router.route("/:title/edit").get((req, res) => {
+  let articlesArr = db.getAll();
+  res.render("/articles/edit", {
+    collection: articlesArr[0]
   });
+  router.put("/:title", (req, res) => {
+    let title = req.params.title;
+    let body = req.body;
+    let mickey = db.artPut(title);
+    res.redirect("/articles/title");
+  });
+});
+// router.get("/edit", (req, res) => {
+//   const articlesArr = db.getAll();
+//   res.render("article/edit", {
+//     collection: articlesArr[0]
+//
+
+router.route("/new").get((req, res) => {
+  res.render("article/new");
 });
 
 router.get("/:title", (req, res) => {
   const articlesArr = db.getAll();
   // console.log(articlesArr);
-  res.render("articles/index", {
+  res.render("./index", {
     collection: articlesArr
   });
-
-  // });
-  router.put("/:title", (req, res) => {
-    let title = req.params.title;
-    let body = req.body;
-    let mickey = db.artPut(title);
-    return res.redirect("/articles/title");
-  });
 });
+// });
 
+module.exports = router;
 // router.delete('/:title', (req, res) => {
 //   articles.delete(req.params.title);
 //   return res.redirect('/articles');
@@ -79,4 +86,3 @@ router.get("/:title", (req, res) => {
 // .delete('/:title',(req,res) => {
 
 // })
-module.exports = router;
